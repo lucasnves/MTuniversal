@@ -1,11 +1,12 @@
 import sys
+from tkinter import E
 
 class MaquinaTuring:
 
 	def LendoArquivo(self):
 
 		# Digite no 'C:...' o diretório aonde está o arquivo que deseja ler com os estados e transições.
-		with open(r'C:\Users\Lucas\Área de Trabalho\MaquinaDeTuring\ex2.txt') as arquivo:
+		with open(r'C:\Users\Lucas\Área de Trabalho\MaquinaDeTuring\ex3.txt') as arquivo:
 			self.transicoes= {}
 			for linha in arquivo:
 				lendo= linha.split();
@@ -18,7 +19,7 @@ class MaquinaTuring:
 		final= input("Digite o estado final: ")
 
 		self.inicial= inicial
-		self.final= final.split(" ")
+		self.final= final
 
 		self.aceita= "\nAceita! \n"
 		self.rejeita= "\nRejeitada! \n"
@@ -42,24 +43,27 @@ class MaquinaTuring:
 		ESTADOS= list(self.transicoes)
 
 		while True:
-			if ESTADOS.count((Eatual, self.fita[pos]))==1:
-				reposic= self.transicoes[(Eatual, self.fita[pos])]
+			try:
+				if ESTADOS.count((Eatual, self.fita[pos]))==1:
+					reposic= self.transicoes[(Eatual, self.fita[pos])]
 
-				i+=1
-				print("\nINT: %d" % i + "º - \n" + "Estado: (" + Eatual + "), Foi para: (" + reposic[0] + "), Leu: '" + self.fita[pos] 
-				+ "', Escreveu: '" + reposic[1] + "', Moveu para: " + reposic[2] +"\n")
+					i+=1
+					print("\nINT: %d" % i + "º - \n" + "Estado: (" + Eatual + "), Foi para: (" + reposic[0] + "), Leu: '" + self.fita[pos] 
+					+ "', Escreveu: '" + reposic[1] + "', Moveu para: " + reposic[2] +"\n")
 
-				Eatual= reposic[0]
-				self.fita[pos]= reposic[1]
+					Eatual= reposic[0]
+					self.fita[pos]= reposic[1]
 
-				if reposic[2]=="L": pos -= 1
-				else: pos += 1
-				
-				self.mostrarFita()
+					if reposic[2]=="L": pos -= 1
+					else: pos += 1
+					
+					self.mostrarFita()
 
-			else:
-				print("hereee")
-				break
+				else:
+					break
+			except:
+				print("\nPalavra não aceitavel\n")
+				break;
 
 		print(self.aceita) if self.final.count(Eatual)==1 else print(self.rejeita)
 
